@@ -58,7 +58,7 @@ public class Pong2 extends JComponent implements ActionListener, MouseMotionList
 				g.fillRect((int) arr[i][j].getX(),(int) arr[i][j].getY(),(int) arr[i][j].getWidth(),(int) arr[i][j].getHeight());
 					
 				g.setColor(new Color(178, 223, 224));
-				g.fillRect(j * 160 - 1, i * rectHeight, 1, rectHeight);
+				g.fillRect(j * (800 / arr[0].length) - 1, i * rectHeight, 1, rectHeight);
 			}
 			if (i > 0)
 			{
@@ -86,7 +86,7 @@ public class Pong2 extends JComponent implements ActionListener, MouseMotionList
 		{
 			for (int j = 0; j < arr[0].length; j++)
 			{
-				Rectangle r = new Rectangle(j * 160, i * rectHeight, 160, rectHeight);
+				Rectangle r = new Rectangle(j * (800 / arr[0].length), i * rectHeight, 800 / arr[0].length, rectHeight);
 				arr[i][j] = r;
 			}
 		}
