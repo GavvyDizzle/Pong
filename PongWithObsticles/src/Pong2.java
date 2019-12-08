@@ -96,7 +96,10 @@ public class Pong2 extends JComponent implements ActionListener, MouseMotionList
 		ballY += ballYSpeed;
 		
 		if (ballX + 30 >= paddleX && ballX <= paddleX + 150 && ballY + 30 >= paddleY && ballY <= paddleY + 15)
+		{
+			padBallCollision();
 			ballYSpeed *= -1;
+		}
 		if (ballY <= 0)
 			ballYSpeed *= -1;
 		if (ballX >= 770)
@@ -116,7 +119,7 @@ public class Pong2 extends JComponent implements ActionListener, MouseMotionList
 					arr[i][j].setY(1000);
 					arr[i][j].setHeight(0);
 					arr[i][j].setWidth(0);
-					ballXSpeed = (int) (Math.random() * 3 + 3);
+					//ballXSpeed = (int) (Math.random() * 3 + 3);
 					count ++;
 				}
 			}
@@ -125,6 +128,12 @@ public class Pong2 extends JComponent implements ActionListener, MouseMotionList
 		repaint();
 	}
 	
+	private void padBallCollision() {
+		double collidePos = (ballX + 15) - (paddleX + 75);
+		ballXSpeed = collidePos / 10;
+		
+	}
+
 	@Override
 	public void mouseDragged(MouseEvent e) 
 	{
