@@ -7,14 +7,15 @@ import java.awt.event.MouseMotionListener;
 
 public class Pong2 extends JComponent implements ActionListener, MouseMotionListener
 {
+	private static Rectangle[][] arr = new Rectangle[4][5];
+	private static int rectHeight = 25;
 	private int ballX = (int) (Math.random() * 770);
-	private int ballY = (int) (Math.random() * 200 + 110);
+	private int ballY = arr.length * rectHeight;
 	private int paddleX = 0;
 	private int paddleY = 510;
 	private double ballYSpeed = 5;
 	private double ballXSpeed = (int) (Math.random() * 3 + 3);
 	private int count = 0;
-	private static Rectangle[][] arr = new Rectangle[2][5];
 	
 	
 	public static void main(String[] args)
@@ -57,12 +58,14 @@ public class Pong2 extends JComponent implements ActionListener, MouseMotionList
 				g.fillRect((int) arr[i][j].getX(),(int) arr[i][j].getY(),(int) arr[i][j].getWidth(),(int) arr[i][j].getHeight());
 					
 				g.setColor(new Color(178, 223, 224));
-				g.fillRect(j * 160 - 1, i * 50, 1, 50);
+				g.fillRect(j * 160 - 1, i * rectHeight, 1, rectHeight);
+			}
+			if (i > 0)
+			{
+				g.setColor(new Color(178, 223, 224)); //horizontal lines
+				g.fillRect(0, i * rectHeight, 800, 1);
 			}
 		}
-		
-		g.setColor(new Color(178, 223, 224));
-		g.fillRect(0, 50, 800, 1);
 		
 		g.setColor(new Color(155, 93, 169)); //Ball
 		g.fillOval(ballX, ballY, 30, 30);
@@ -83,7 +86,7 @@ public class Pong2 extends JComponent implements ActionListener, MouseMotionList
 		{
 			for (int j = 0; j < arr[0].length; j++)
 			{
-				Rectangle r = new Rectangle(j * 160, i * 50, 160, 50);
+				Rectangle r = new Rectangle(j * 160, i * rectHeight, 160, rectHeight);
 				arr[i][j] = r;
 			}
 		}
@@ -114,13 +117,14 @@ public class Pong2 extends JComponent implements ActionListener, MouseMotionList
 				if (ballX + 30 > arr[i][j].getX() && ballX < arr[i][j].getX() + arr[i][j].getWidth() &&
 					ballY + 30 > arr[i][j].getY() && ballY < arr[i][j].getY() + arr[i][j].getHeight())
 				{
-					ballYSpeed *= -1;
+					if (ballYSpeed < 0)
+						ballYSpeed *= -1;
 					arr[i][j].setX(1000);
 					arr[i][j].setY(1000);
 					arr[i][j].setHeight(0);
 					arr[i][j].setWidth(0);
-					//ballXSpeed = (int) (Math.random() * 3 + 3);
-					count ++;
+					//ballXSpeed = (int) (Math.random() * 3 + 3); //random x speed when hit rectangle
+					count++;
 				}
 			}
 		}
